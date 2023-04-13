@@ -8,7 +8,7 @@ const getAllBlogs = async(req,res,next) =>{
     try{
         blogs = await Blog.find();
     }catch(e){
-        console.log(e);
+        console.log('1',e);
     }
 
     if(!blogs){
@@ -59,7 +59,7 @@ const addBlog = async(req,res,next) =>{
     try {
         existingUser = await User.findById(user);
     } catch (e) {
-        return console.log(e);
+        return console.log('2',e);
     }
         if(!existingUser){
         return res.status(400).json({message: " Unautorized"});
@@ -71,7 +71,7 @@ const addBlog = async(req,res,next) =>{
     try {
       await  blog.save();
     } catch (e) {
-       return console.log(e);
+       return console.log('3',e);
     }
 
     try {
@@ -82,7 +82,7 @@ const addBlog = async(req,res,next) =>{
         await existingUser.save(session);
         session.commitTransaction();
       } catch (err) {
-        console.log(err);
+        console.log('4',err);
         return res.status(500).json({ message: err });
       }
     return res.status(200).json({blog});
@@ -100,7 +100,7 @@ const updateBlog = async(req,res,next) => {
             desc
         });
     } catch (e) {
-        return console.log(e);
+        return console.log('5',e);
     }
 
     if(!blog){
@@ -118,7 +118,7 @@ const getById = async (req,res,next) =>{
         blog = await Blog.findById(id);
     }
     catch(e){
-        return console.log(e);
+        return console.log('6',e);
     }
 
     if(!blog){
@@ -129,7 +129,7 @@ const getById = async (req,res,next) =>{
 }
 
 const deleteBlog = async(req,res,next) => {
-
+s
     const id = req.params.id;
 
     let blog;
@@ -138,7 +138,7 @@ const deleteBlog = async(req,res,next) => {
         await blog.user.blogs.pull(blog);
         await blog.user.save();
     } catch (e) {
-        console.log(e);
+        console.log('7',e);
     }
     if(!blog)
     {

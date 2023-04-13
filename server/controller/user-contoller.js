@@ -8,7 +8,7 @@ const getAllUser = async(req,res,next) =>{
         users = await User.find();
     }
     catch(err){
-        console.log(err);
+        console.log('i remain',err);
     }
     if(!users){
         return res.status(404).json({ message : "users are not found"})
@@ -17,15 +17,16 @@ const getAllUser = async(req,res,next) =>{
     return res.status(200).json({users});
 }
 
-const signUp = async(req,res,next) =>{
+const signUp = async (req,res,next) =>{
    const { name , email , password } = req.body;
+   console.log(name,email,password)
 
    let existingUser;
 
    try{
     existingUser = await User.findOne({email})
    }catch(e){
-    console.log(err);
+    console.log('This error',e);
    }
 
    if(existingUser){
@@ -39,10 +40,10 @@ const signUp = async(req,res,next) =>{
    });
 
    try{
-       user.save();
-       return res.status(201).json({ user })
+       await user.save();
+       return res.status(201).json({ user })    
    }
-   catch(e){console.log(e);}
+   catch(e){console.log('erreee',e);}
 }
 
 const logIn = async(req,res,next) => {
@@ -53,19 +54,19 @@ const logIn = async(req,res,next) => {
     try{
      existingUser = await User.findOne({email})
     }catch(e){
-     console.log(err);
+     console.log('Second error',e);
     }
-    if(!existingUser){
-        return res.status(404).json({message : "User is not found"})
+    if (!existingUser) {
+        return res.status(404).json({ message: "User is not found" });
     }
-
-    const isPasswordCorrect = bcrypt.compareSync(password,existingUser.password);
-
-    if(!isPasswordCorrect){
-        return res.status(400).json({message: "Incorrect Password!"});
+    
+    const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
+    
+    if (!isPasswordCorrect) {
+        return res.status(400).json({ message: "Incorrect Password!" });
     }
-
-    return res.status(200).json({user: existingUser});
+    
+    return res.status(200).json({ user: existingUser });    
 }
 
 module.exports = { getAllUser, signUp , logIn};

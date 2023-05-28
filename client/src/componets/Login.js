@@ -3,17 +3,20 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Login = () => {
-  const naviagte = useNavigate();
-  const dispath = useDispatch();
+  const navigate = useNavigate(); // Corrected spelling here
+  const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
     password: "",
   });
+  
+  const location = useLocation();
   const [isSignup, setIsSignup] = useState(false);
+
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -22,7 +25,7 @@ const Login = () => {
   };
   const sendRequest = async (type = "login") => {
     const res = await axios
-      .post(`http://localhost:5000/api/users/${type}`, {
+      .post(`http://127.0.0.1:5000/api/users/${type}`, {
         name: inputs.name,
         email: inputs.email,
         password: inputs.password,
@@ -42,13 +45,13 @@ const Login = () => {
     if (isSignup) {
       sendRequest("signup")
         .then((data) => localStorage.setItem("userId", data.user._id))
-        .then(() => dispath(authActions.login()))
-        .then(() => naviagte("/blogs"));
+        .then(() => dispatch(authActions.login()))
+        .then(() => navigate("/myBlogs"));
     } else {
       sendRequest()
         .then((data) => localStorage.setItem("userId", data.user._id))
-        .then(() => dispath(authActions.login()))
-        .then(() => naviagte("/blogs"));
+        .then(() => dispatch(authActions.login()))
+        .then(() => navigate("/myBlogs"));
     }
   };
   return (
@@ -60,7 +63,7 @@ const Login = () => {
           flexDirection={"column"}
           alignItems="center"
           justifyContent={"center"}
-          boxShadow="10px 10px 20px #ccc"
+          boxShadow="10px 10px 20px #ccc"   
           padding={3}
           margin="auto"
           marginTop={5}

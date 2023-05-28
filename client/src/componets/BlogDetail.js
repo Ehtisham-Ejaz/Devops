@@ -19,25 +19,26 @@ const BlogDetail = () => {
   };
   const fetchDetails = async () => {
     const res = await axios
-      .get(`http://localhost:5000/api/blogs/${id}`)
+      .get(`http://13.53.139.162:5000/api/blogs/${id}`)
       .catch((err) => console.log(err));
     const data = await res.data;
     return data;
   };
   useEffect(() => {
     fetchDetails().then((data) => {
-      setBlog(data.blog);
+      setBlog(data.blog.desc);
+      console.log(data.blog)
       setInputs({
         title: data.blog.title,
-        description: data.blog.description,
+        description: data.blog.desc,
       });
     });
   }, [id]);
   const sendRequest = async () => {
     const res = await axios
-      .put(`http://localhost:5000/api/blogs/update/${id}`, {
+      .put(`http://13.53.139.162:5000/api/blogs/update/${id}`, {
         title: inputs.title,
-        description: inputs.description,
+        desc: inputs.description,
       })
       .catch((err) => console.log(err));
 

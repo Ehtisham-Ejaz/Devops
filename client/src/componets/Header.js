@@ -31,12 +31,6 @@ const Header = () => {
               <Tab
                 //className={classes.font}
                 LinkComponent={Link}
-                to="/blogs"
-                label="All Blogs"
-              />
-              <Tab
-                //className={classes.font}
-                LinkComponent={Link}
                 to="/myBlogs"
                 label="My Blogs"
               />
@@ -50,21 +44,13 @@ const Header = () => {
           </Box>}
           <Box display="flex" marginLeft="auto">
               {!isLoggedIn && (
-             <> <Button
-              LinkComponent={Link}
-              to="login/"
-              sx={{ margin: 1, fontWeight : 'bold' , color:"white" , borderRadius: 10 }}
-              >
-                  Login
-              </Button>
-              <Button 
-              LinkComponent={Link}
-              to="login/"
-               sx={{ margin: 1, fontWeight : 'bold' , color:"white" , borderRadius: 10 }}
-              >
-                   
-                  SignUp
-              </Button>
+             <><Button
+             LinkComponent={Link}
+             to={{ pathname: "/login"}}
+             sx={{ margin: 1, fontWeight: "bold", color: "white", borderRadius: 10 }}
+           >
+             Login
+           </Button>
               </>
               )}
 

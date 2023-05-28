@@ -9,16 +9,11 @@ const UserBlogs = () => {
       .get(`http://localhost:5000/api/blogs/user/${id}`)
       .catch((err) => console.log(err));
     const data = await res.data;
-    console.log(data);
-    console.log("-----");
     return data;
   };
   useEffect(() => {
     sendRequest().then((data) => setUser(data.user));
-    console.log("-----------+");
-    console.log(user);
-    console.log("--------------+");
-  }, []);
+  }, [user]);
 
   return (
     <div>

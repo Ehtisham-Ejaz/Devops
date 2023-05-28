@@ -129,7 +129,7 @@ const getById = async (req,res,next) =>{
 }
 
 const deleteBlog = async(req,res,next) => {
-s
+
     const id = req.params.id;
 
     let blog;

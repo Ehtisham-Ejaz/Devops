@@ -14,9 +14,8 @@ function App() {
       <Header/>
     </header>
     <main>
-    <Routes>
+    <Routes >
       <Route path="/login" element={<Login/>}></Route>
-      <Route path="/blogs" element={<Blogs/>}></Route>
       <Route path="/myBlogs" element={<UserBlogs/>}></Route>
       <Route path="/myBlogs/:id" element={<BlogDetail/>}></Route>
       <Route path="/blogs/add" element={<AddBlogs />} />

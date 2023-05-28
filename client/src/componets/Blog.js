@@ -14,27 +14,27 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useStyles } from "./utils";
+
 const Blogs = ({ title, desc, img, user, isUser, id }) => {
- const classes = useStyles();
+  const classes = useStyles();
   const navigate = useNavigate();
+  
   const handleEdit = () => {
     navigate(`/myBlogs/${id}`);
   };
-  const deleteRequest = async () => {
-    const res = await axios
-      .delete(`http://localhost:5000/api/blogs/${id}`)
-      .catch((err) => console.log(err));
-    const data = await res.data;
-    return data;
+  
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://127.0.0.1:5000/api/blogs/${id}`);
+      navigate("/myBlogs");
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const handleDelete = () => {
-    deleteRequest()
-      .then(() => navigate("/"))
-      .then(() => navigate("/blogs"));
-  };
+  
+
   return (
     <div>
-      {" "}
       <Card
         sx={{
           width: "40%",
@@ -50,10 +50,10 @@ const Blogs = ({ title, desc, img, user, isUser, id }) => {
         {isUser && (
           <Box display="flex">
             <IconButton onClick={handleEdit} sx={{ marginLeft: "auto" }}>
-              <ModeEditOutlineIcon color="warning" />
+              <ModeEditOutlineIcon color="orange" />
             </IconButton>
             <IconButton onClick={handleDelete}>
-              <DeleteForeverIcon color="error" />
+              <DeleteForeverIcon color="blue" size={40} />
             </IconButton>
           </Box>
         )}
@@ -93,3 +93,4 @@ const Blogs = ({ title, desc, img, user, isUser, id }) => {
 };
 
 export default Blogs;
+
